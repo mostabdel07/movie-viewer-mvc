@@ -1,0 +1,51 @@
+.cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  background: linear-gradient(
+    110.6deg,
+    rgb(156, 116, 129) -18.3%,
+    rgb(67, 54, 74) 16.4%,
+    rgb(47, 48, 67) 68.2%,
+    rgb(27, 23, 36) 99.1%
+  );
+}
+
+nav .navbar-nav li a {
+  color: #fff !important;
+}
+
+.header {
+  height: 20vh;
+  background-image: url(../img/hero.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.table-container {
+  height: 35em;
+}
+
+.billboard-container {
+  display: flex;
+  width: 90%;
+  overflow: scroll;
+  margin: 0 auto;
+}
+
+.billboard-container img {
+  height: 24rem;
+}
+
+.category-container {
+  display: flex;
+  width: 90%;
+  overflow: scroll;
+  margin: 0 auto;
+}
+
+.category-container img {
+  height: 24rem;
+  margin: 1rem;
+}
