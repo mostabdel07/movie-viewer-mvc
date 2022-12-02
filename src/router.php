@@ -1,8 +1,11 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Router;
 
 require_once(__DIR__ . '/controller/controller.php');
+
 use Controller;
 
 
@@ -11,21 +14,23 @@ use Controller;
 // - get_request_path() must remove trailing slashes of all request paths.
 // - The root '/' document becomes the empty string ''. In that case we'll handle as '/index'.
 // ----------------------------------------------------------------------------
-function get_request_path(): string {
+function get_request_path(): string
+{
 
     $url_path           = $_SERVER['REQUEST_URI'];
     $sanitized_url_path = filter_var($url_path, FILTER_SANITIZE_URL);
     $trimmed_url_path   = rtrim($sanitized_url_path, '/');
-   
+
     return $trimmed_url_path;
 }
 
 
 // IMPORTANT: Paths never end with a slash '/'. The root document is ''.
 // ----------------------------------------------------------------------------
-function make_response(string $request_path): string {
+function make_response(string $request_path): string
+{
 
-    $response = match($request_path) {
+    $response = match ($request_path) {
 
         '/index', ''    =>  Controller\index(),
         '/blog'         =>  Controller\blog(),
@@ -41,7 +46,8 @@ function make_response(string $request_path): string {
 
 
 // ----------------------------------------------------------------------------
-function main(): void {
+function main(): void
+{
 
     // 1. Get URL path
     $request_path = get_request_path();

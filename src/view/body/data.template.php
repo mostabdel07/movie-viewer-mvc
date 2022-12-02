@@ -10,7 +10,7 @@
 
      // echo View\get_html_header($movies_table->header);
      // echo View\get_html_body($movies_table->body);
-     ///$movies_table->body $movies_table->body
+     // $movies_table->body $movies_table->body
 
      foreach($movies_table->body  as $data) {
       echo "<tr>";
