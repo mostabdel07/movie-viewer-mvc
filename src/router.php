@@ -35,6 +35,7 @@ function make_response(string $request_path): string
         '/index', ''    =>  Controller\index(),
         '/blog'         =>  Controller\blog(),
         '/gallery'      =>  Controller\gallery(),
+        '/action'       =>  Controller\action(),
         '/data'         =>  Controller\data(),
         '/web-service'  =>  Controller\web_service(),
 

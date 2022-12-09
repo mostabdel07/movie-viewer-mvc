@@ -6,7 +6,7 @@
     foreach ($image_alt_pair_array as [$image, $alt]) {
         switch ($alt) {
             case 'action':
-                echo "<a href='./action.html'><img src='$image' alt='$alt' id='$alt'></a>" . PHP_EOL;
+                echo "<a href='./action'><img src='$image' alt='$alt' id='$alt'></a>" . PHP_EOL;
                 break;
             case 'adventure':
                 echo "<a href='./adventure.html'><img src='$image' alt='$alt' id='$alt'></a>" . PHP_EOL;

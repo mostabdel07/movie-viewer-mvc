@@ -11,6 +11,7 @@ use function Model\read_table;
 use function Model\get_blog_entries;
 use function Model\get_img_url_array;
 use function Model\get_img_info_array;
+use function Model\get_action_info_array;
 
 
 
@@ -100,6 +101,23 @@ function gallery(): string
         ]
     );
     return $gallery_view;
+}
+
+function action(): string
+{
+    $action_collection_array = glob(__DIR__ . '/../../db/gallery/action/*');
+
+    $action_vars = get_img_info_array($action_collection_array);
+
+    $action_body = render_template(get_template_path('/body/category'), $action_vars);
+    $action_view = render_template(
+        get_template_path('/skeleton/skeleton'),
+        [
+            'title' => 'Action',
+            'body'  => $action_body
+        ]
+    );
+    return $action_view;
 }
 
 // ----------------------------------------------------------------------------
