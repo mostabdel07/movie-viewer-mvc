@@ -1,27 +1,36 @@
-# WebApp README.md
+# M07 DWES WebApp README.md
 -------------------------------------------------------------------------------
 
 # About
 - This is an WebApp example for M07 DWES.
 
-# Dir structure
-- db:     All structured data files: databases, .csv files, etc. 
-- public: All static content: img, css, js, etc.
-- src:    The main codebase that generates the dynamic content.
-- vendor: Libraries and third-party code.
+# Project dir structure
+- db:      All data files: databases, .csv files, etc. 
+- public:  All static content: img, css, js, etc.
+- src:     Contains the app code and its libraries
+- src/app: The main codebase that generates the dynamic content.
+- src/lib: First-party libraries needed by the app. Not managed by composer.
+- tests:   Tests of code in src. Done with Pest.
+- vendor:  Third-party dependencies. Managed by Composer.
+
+# Project main files
+- composer.json: List of project dependencies managed by Composer. Can be manually edited.
+- composer.lock: List of all dependencies managed by Composer. Generated automatically.
+- phpunit.xml:   PHPUnit config file. Used by Pest.
+- README.md:     This file.
 
 # Source
-- Start reading src/rewriter.php
+- Start reading src/app/rewriter.php
 
 # Deployment
 - Copy the whole directory containing this file wherever you want.
 
 # Execution with PHP's Development Web Server
-- php -S 0.0.0.0:8080 -t public/ src/rewriter.php
+- php -S 0.0.0.0:8080 -t public/ src/app/rewriter.php
 
 # Execution with a production server (Apache, Ngnix, Caddy)
 - Configure URL Rewriting.
-- Point the web server to execute router.php on every execution.
+- Point the web server to execute src/app/router.php.
 
 
 
@@ -43,7 +52,7 @@
                 "-S",
                 "localhost:8080",
                 "-t",
-                "${fileDirname}/../public",
+                "${fileDirname}/../../public",
                 "${file}"
             ],
             "program": "",
@@ -62,7 +71,7 @@
    - Launch currently open script: Runs a script in a terminal.
    - Launch Rewriter: Launches a webapp in PHP's development server.
    Choose "Launch Rewriter", but don't press the "Play" button.
-6. Open the file src/rewriter.php and press F5.
+6. Open the file src/app/rewriter.php and press F5.
 7. The debugger will start.
    You can add breakpoints and leave the debugger running while you change code.
    Refresh the browser to see changes.

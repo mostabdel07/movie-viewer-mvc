@@ -1,0 +1,11 @@
+path            | methods   | controller_function   
+                | GET       | Controller\index      
+/index          | GET       | Controller\index      
+/blog           | GET, POST | Controller\blog       
+/gallery        | GET       | Controller\gallery    
+/gallery/:genre | GET       | Controller\genre    
+/data           | GET       | Controller\data       
+/web-service    | GET       | Controller\web_service
+/api/about      | GET       | Controller\about
+/login          | GET, POST | Controller\login
+*any            | GET, POST | Controller\error_404
