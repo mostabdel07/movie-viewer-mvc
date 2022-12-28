@@ -353,6 +353,8 @@
 .testimonial-carousel .owl-item .testimonial-text *,
 .testimonial-carousel .owl-item .testimonial-item img {
     transition: .5s;
+    max-width: 640px;
+    max-height: 940px;
 }
 
 .testimonial-carousel .owl-item.center .testimonial-text * {
@@ -361,6 +363,8 @@
 
 .testimonial-carousel .owl-item.center .testimonial-item img {
     background: var(--primary) !important;
+     max-width: 640px;
+     max-height: 940px;
 } 
 
 .testimonial-carousel .owl-nav {
@@ -445,4 +449,30 @@
 
 .footer .copyright a:hover {
     color: var(--primary);
+}
+
+/* TABLE */
+
+table td,
+table th {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.mask-custom {
+  background: rgba(24, 24, 16, .2);
+  border-radius: 2em;
+  backdrop-filter: blur(25px);
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  background-clip: padding-box;
+  box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+}
+
+.bg-table {
+    background-image: url('/img/bg-table.jpg');
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
+    
 }

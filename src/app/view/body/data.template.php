@@ -1,5 +1,5 @@
  <!-- Page Header Start -->
- <div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
+ <div class="container-fluid page-header wow fadeIn" data-wow-delay="0.1s">
    <div class="container text-center">
      <h1 class="display-4 text-white animated slideInDown mb-4">Data</h1>
      <nav aria-label="breadcrumb animated slideInDown">
@@ -14,28 +14,54 @@
 
 
  <!-- Testimonial Start -->
- <div class="container-xxl py-5">
-   <div class="container">
-     <table class="table table-striped table-dark">
 
-       <?php
-        require_once(__DIR__ . '/../view.php');
+ <div class="container-fluid py-5 h-100">
+   <div class="mask d-flex align-items-center h-100">
+     <div class="container-fluid">
+       <div class="row text-center mx-auto pb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+         <div class="col-12">
+           <div class="d-inline-block rounded-pill bg-secondary text-primary py-1 px-3 mb-3">Data</div>
+           <h1 class="display-6 pb-5">Table</h1>
+         </div>
+       </div>
+       <div class="row justify-content-center">
+         <div class="col-10">
+           <div class="bg-table p-5 rounded-3">
+             <div class="card mask-custom rounded-3">
+               <div class="card-body">
+                 <div class="table-responsive">
+                   <table class="table table-borderless text-white mb-0">
+                     <thead>
+                       <?php
+                        echo "<thead>";
+                        echo "<tr>";
+                        foreach ($movies_table->header  as $title) {
+                          echo "<th class='text-primary'>" . $title . "</th>";
+                        }
 
-        // echo View\get_html_header($movies_table->header);
-        // echo View\get_html_body($movies_table->body);
-        // $movies_table->body $movies_table->body
-
-        foreach ($movies_table->body  as $data) {
-          echo "<tr>";
-          foreach ($data  as $row) {
-            echo "<td>" . $row
-              . "</td>";
-          }
-          echo "</tr> \n";
-        }
-        ?>
-
-     </table>
+                        echo "<th class='text-primary'>ACTIONS</th>";
+                        echo "</tr>";
+                        echo "</thead>";
+                        echo "<tbody>";
+                        foreach ($movies_table->body as $data) {
+                          echo "<tr>";
+                          foreach ($data as $row) {
+                            echo "<td>" . $row
+                              . "</td>";
+                          }
+                          echo "<td class='text-center'><i class='fa-solid fa-pen-to-square text-info pe-4'></i><i class='fa-solid fa-x text-danger'></i></td>";
+                          echo "</tr> \n";
+                        }
+                        echo "</tbody>";
+                        ?>
+                   </table>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
    </div>
  </div>
  <!-- Testimonial End -->

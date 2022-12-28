@@ -25,7 +25,7 @@
         for ($i = 0; $i < count($blog_entry); $i++) {
           echo "<div class='testimonial-item text-center pb-2'>";
           echo "<div class='testimonial-text rounded text-center p-4'>";
-          echo "<h5 class='mb-1'>{$blog_entry[$i]['title']}</h5>";
+          echo "<h5 class='pb-3'>{$blog_entry[$i]['title']}</h5>";
           echo "<p>{$blog_entry[$i]['text']}</p>";
           echo "</div>";
           echo "</div>";

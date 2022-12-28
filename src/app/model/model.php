@@ -10,8 +10,10 @@ use function Config\get_lib_dir;
 use function Config\get_csv_dir;
 
 require_once(get_lib_dir() . '/table/table.php');
+require_once(get_lib_dir() . '/user/user.php');
 
 use Table\Table;
+use User\User;
 
 require_once(get_lib_dir() . '/utils/utils.php');
 
@@ -149,4 +151,18 @@ function get_img_info_category(array $local_file_array, string $genre): array
         'alt_array'   => $web_alt_array
     ];
     return $imgInfoArray;
+}
+
+
+function check_user_login(string $username, string $password): bool
+{
+
+    $users_list = User::getUsersList(get_csv_path('users'));
+
+    for ($i = 0; $i < count($users_list); $i++) {
+        if (in_array($username, $users_list[$i], true) && in_array($password, $users_list[$i], true)) {
+            return true;
+        }
+    }
+    return false;
 }

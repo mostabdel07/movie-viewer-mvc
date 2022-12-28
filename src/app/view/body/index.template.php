@@ -66,7 +66,7 @@
                 <span class="text-primary"><strong>Mostafa Abdel</strong> - Founder & <strong>Victor Muñoz</strong> - Co-Founder</span>
               </div>
               <p class="mb-5">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-              <a class="btn btn-outline-primary py-2 px-3" href="">
+              <a class="btn btn-outline-primary py-2 px-3" href="/contact">
                 Contact Us
                 <div class="d-inline-flex btn-sm-square bg-primary text-white rounded-circle ms-2">
                   <i class="fa fa-arrow-right"></i>

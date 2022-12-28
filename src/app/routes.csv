@@ -1,7 +1,8 @@
 path            | methods   | controller_function   
                 | GET       | Controller\index      
 /index          | GET       | Controller\index      
-/blog           | GET, POST | Controller\blog       
+/blog           | GET, POST | Controller\blog 
+/contact        | GET, POST | Controller\contact       
 /gallery        | GET       | Controller\gallery    
 /gallery/:genre | GET       | Controller\genre    
 /data           | GET       | Controller\data       

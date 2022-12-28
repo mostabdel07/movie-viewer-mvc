@@ -25,6 +25,7 @@ require_once(get_model_dir() . '/model.php');
 use function Model\get_csv_path;
 use function Model\read_table;
 use function Model\add_blog_message;
+use function Model\check_user_login;
 use function Model\get_blog_entries;
 use function Model\get_img_info_array;
 use function Model\get_img_info_category;
@@ -92,6 +93,13 @@ function login(Request $request): Response
         $password = $request->parameters['password'];
 
         // Look into users.csv if the username and password are corrects, etc.
+        if (check_user_login($username, $password)) {
+            $response = new Response('Logged!');
+        } else {
+            $response = new Response('Username or password is incorrect!');
+        }
+
+        return $response;
     }
 }
 
@@ -246,3 +254,30 @@ function about(Request $request): Response
     $response = new Response($authors, 404);
     return $response;
 }
+
+// ----------------------------------------------------------------------------
+function contact(Request $request): Response
+{
+    // 1. If GET, send form
+    if ($request->method == 'GET') {
+
+        $contact_body = render_template(
+            get_template_path('/body/contact'),
+            []
+        );
+        $contact_view = render_template(
+            get_template_path('/skeleton/skeleton'),
+            [
+                'title' => 'Contact',
+                'body'  => $contact_body
+            ]
+        );
+
+        $response = new Response($contact_view);
+        return $response;
+
+        // 2. If POST get form parameters
+    }
+}
+
+// ----------------------------------------------------------------------------
