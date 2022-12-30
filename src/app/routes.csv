@@ -9,4 +9,5 @@ path            | methods   | controller_function
 /web-service    | GET       | Controller\web_service
 /api/about      | GET       | Controller\about
 /login          | GET, POST | Controller\login
+/register       | GET, POST | Controller\register
 *any            | GET, POST | Controller\error_404

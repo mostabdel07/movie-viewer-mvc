@@ -120,7 +120,7 @@ class User
     }
 
     // ------------------------------------------------------------------------
-    public function insertUser(
+    public static function insertUser(
         string $csv_filename,
         string $separator = ' | '
     ): void {

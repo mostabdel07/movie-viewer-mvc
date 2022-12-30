@@ -63,7 +63,7 @@
               <h1 class="display-6 mb-5">A Movie Platform For Movies Fans</h1>
               <div class="bg-light border-bottom border-5 border-primary rounded p-4 mb-4">
                 <p class="text-dark mb-2">Aliqu diam amet diam et eos. Clita erat ipsum et lorem sed stet lorem sit clita duo justo erat amet</p>
-                <span class="text-primary"><strong>Mostafa Abdel</strong> - Founder & <strong>Victor Muñoz</strong> - Co-Founder</span>
+                <span class="text-primary"><strong>Mostafa Abdel</strong> - Founder & <strong>Victor Muñoz</strong> - Founder</span>
               </div>
               <p class="mb-5">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
               <a class="btn btn-outline-primary py-2 px-3" href="/contact">

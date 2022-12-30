@@ -29,6 +29,7 @@ use function Model\check_user_login;
 use function Model\get_blog_entries;
 use function Model\get_img_info_array;
 use function Model\get_img_info_category;
+use function Model\add_user;
 
 
 require_once(get_view_dir() . '/view.php');
@@ -97,6 +98,45 @@ function login(Request $request): Response
             $response = new Response('Logged!');
         } else {
             $response = new Response('Username or password is incorrect!');
+        }
+
+        return $response;
+    }
+}
+
+// ----------------------------------------------------------------------------
+function register(Request $request): Response
+{
+    // 1. If GET, send form
+    if ($request->method == 'GET') {
+
+        $register_body = render_template(
+            get_template_path('/body/register'),
+            []
+        );
+        $register_view = render_template(
+            get_template_path('/skeleton/skeleton'),
+            [
+                'title' => 'Register',
+                'body'  => $register_body
+            ]
+        );
+
+        $response = new Response($register_view);
+        return $response;
+
+        // 2. If POST get form parameters
+    } elseif ($request->method == 'POST') {
+
+        $username = $request->parameters['username'];
+        $password = $request->parameters['password'];
+
+        // Look into users.csv if the username and password exist.
+        if (check_user_login($username, $password)) {
+            $response = new Response('User already exists!');
+        } else {
+            add_user(get_csv_path('users'), $username, $password);
+            $response = new Response('Registration Successful!');
         }
 
         return $response;

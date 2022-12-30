@@ -153,6 +153,7 @@ function get_img_info_category(array $local_file_array, string $genre): array
     return $imgInfoArray;
 }
 
+//-------------------- User Methods -----------------------------///
 
 function check_user_login(string $username, string $password): bool
 {
@@ -165,4 +166,16 @@ function check_user_login(string $username, string $password): bool
         }
     }
     return false;
+}
+
+// ----------------------------------------------------------------------------
+function add_user(string $csv_filename, string $username, string $password): void
+{
+
+    $handle = fopen($csv_filename, "a");
+
+    fputcsv($handle, ["\n"]);
+    fputcsv($handle, [$username, $password]);
+
+    fclose($handle);
 }

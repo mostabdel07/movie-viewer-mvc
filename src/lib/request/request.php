@@ -69,6 +69,8 @@ class Request
 
     // Alternative constructor.
     // It's called "FromWebServer" but it's from the Super Globals actually.
+    // $_REQUEST includes $_GET and $_POST. It also used to include $_COOKIE but not anymore.
+    // https://stackoverflow.com/questions/8928733/php-request-doesnt-contain-cookies
     // ------------------------------------------------------------------------
     public static function getFromWebServer(): self
     {
@@ -80,10 +82,10 @@ class Request
         // 2. Get method
         $method = $_SERVER['REQUEST_METHOD'];
 
-        // 3. $_REQUEST includes $_GET, $_POST and $COOKIE
-        $parameters = $_REQUEST;
+        // 3. Get parameters
+        $parameters = array_merge($_GET, $_POST, $_COOKIE);
 
-        // 3. Make Request object
+        // 4. Make Request object
         $request = new Request($url_path, $method, $parameters);
 
         return $request;
