@@ -20,6 +20,10 @@ require_once(get_lib_dir() . '/response/response.php');
 
 use Response\Response;
 
+require_once(get_lib_dir() . '/context/context.php');
+
+use Context\Context;
+
 require_once(get_model_dir() . '/model.php');
 
 use function Model\get_csv_path;
@@ -50,24 +54,41 @@ use function Utils\api_call;
 // All controller functions receive $request, whether they use it or not.
 
 // ----------------------------------------------------------------------------
-function index(Request $request): Response
+function index(Request $request, Context $context): array
 {
+    // user 
+    if ($context->logged_in == true && $context->role == "user") {
+        $index_body = render_template(get_template_path('/body/index-user'), []);
+        $index_view = render_template(
+            get_template_path('/skeleton/skeleton-user'),
+            [
+                'title' => 'WebApp',
+                'body'  => $index_body
+            ]
+        );
 
-    $index_body = render_template(get_template_path('/body/index'), []);
-    $index_view = render_template(
-        get_template_path('/skeleton/skeleton'),
-        [
-            'title' => 'WebApp',
-            'body'  => $index_body
-        ]
-    );
+        $response   = new Response($index_view);
+        return [$response, $context];
+    }
 
-    $response   = new Response($index_view);
-    return $response;
+    // visitor
+    else {
+        $index_body = render_template(get_template_path('/body/index'), []);
+        $index_view = render_template(
+            get_template_path('/skeleton/skeleton'),
+            [
+                'title' => 'WebApp',
+                'body'  => $index_body
+            ]
+        );
+
+        $response   = new Response($index_view);
+        return [$response, $context];
+    }
 }
 
 // ----------------------------------------------------------------------------
-function login(Request $request): Response
+function login(Request $request, Context $context): array
 {
     // 1. If GET, send form
     if ($request->method == 'GET') {
@@ -85,7 +106,7 @@ function login(Request $request): Response
         );
 
         $response = new Response($login_view);
-        return $response;
+        return [$response, $context];
 
         // 2. If POST get form parameters
     } elseif ($request->method == 'POST') {
@@ -96,16 +117,18 @@ function login(Request $request): Response
         // Look into users.csv if the username and password are corrects, etc.
         if (check_user_login($username, $password)) {
             $response = new Response('Logged!');
+            $context->logged_in = true;
+            $context->name = $username;
         } else {
             $response = new Response('Username or password is incorrect!');
         }
 
-        return $response;
+        return [$response, $context];
     }
 }
 
 // ----------------------------------------------------------------------------
-function register(Request $request): Response
+function register(Request $request, Context $context): array
 {
     // 1. If GET, send form
     if ($request->method == 'GET') {
@@ -123,7 +146,7 @@ function register(Request $request): Response
         );
 
         $response = new Response($register_view);
-        return $response;
+        return [$response, $context];
 
         // 2. If POST get form parameters
     } elseif ($request->method == 'POST') {
@@ -139,12 +162,12 @@ function register(Request $request): Response
             $response = new Response('Registration Successful!');
         }
 
-        return $response;
+        return [$response, $context];
     }
 }
 
 // ----------------------------------------------------------------------------
-function blog(Request $request): Response
+function blog(Request $request, Context $context): array
 {
 
     // 1. If request is POST, add data
@@ -171,11 +194,11 @@ function blog(Request $request): Response
 
     // 4. Return response
     $response = new Response($blog_view);
-    return $response;
+    return [$response, $context];
 }
 
 // ----------------------------------------------------------------------------
-function gallery(Request $request): Response
+function gallery(Request $request, Context $context): array
 {
     $local_file_array = glob(__DIR__ . '/../../../db/gallery/*');
 
@@ -191,10 +214,10 @@ function gallery(Request $request): Response
     );
 
     $response = new Response($gallery_view);
-    return $response;
+    return [$response, $context];
 }
 // ----------------------------------------------------------------------------
-function genre(Request $request): Response
+function genre(Request $request, Context $context): array
 {
 
     $genre = $request->parameters['genre'];
@@ -215,11 +238,11 @@ function genre(Request $request): Response
     );
 
     $response = new Response($gallery_view);
-    return $response;
+    return [$response, $context];
 }
 
 // ----------------------------------------------------------------------------
-function data(Request $request): Response
+function data(Request $request, Context $context): array
 {
 
     // 1. Get data
@@ -240,11 +263,11 @@ function data(Request $request): Response
     );
 
     $response = new Response($data_view);
-    return $response;
+    return [$response, $context];
 }
 
 // ----------------------------------------------------------------------------
-function web_service(Request $request): Response
+function web_service(Request $request, Context $context): array
 {
     $api_key = "2c30fc277d011c88735381b4cf9c7ac2";
     $result_billboard = api_call("https://api.themoviedb.org/3/trending/all/day?api_key=", $api_key);
@@ -259,11 +282,11 @@ function web_service(Request $request): Response
     );
 
     $response = new Response($web_service_view);
-    return $response;
+    return [$response, $context];
 }
 
 // ----------------------------------------------------------------------------
-function error_404(Request $request): Response
+function error_404(Request $request, Context $context): array
 {
 
     $error404_body = render_template(
@@ -280,23 +303,23 @@ function error_404(Request $request): Response
     );
 
     $response = new Response($error404_view, 404);
-    return $response;
+    return [$response, $context];
 }
 
 // ----------------------------------------------------------------------------
 
-function about(Request $request): Response
+function about(Request $request, Context $context): array
 {
 
     $authors = ["victor", "mostafa"];
 
 
     $response = new Response($authors, 404);
-    return $response;
+    return [$response, $context];
 }
 
 // ----------------------------------------------------------------------------
-function contact(Request $request): Response
+function contact(Request $request, Context $context): array
 {
     // 1. If GET, send form
     if ($request->method == 'GET') {
@@ -314,10 +337,8 @@ function contact(Request $request): Response
         );
 
         $response = new Response($contact_view);
-        return $response;
+        return [$response, $context];
 
         // 2. If POST get form parameters
     }
 }
-
-// ----------------------------------------------------------------------------

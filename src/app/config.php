@@ -78,6 +78,7 @@ function get_utils_dir(): string
 {
     return get_project_dir() . '/src/lib/utils';
 }
-
-
-// ----------------------------------------------------------------------------
+function get_context_dir(): string
+{
+    return get_project_dir() . '/db/context';
+}

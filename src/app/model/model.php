@@ -171,6 +171,7 @@ function check_user_login(string $username, string $password): bool
 // ----------------------------------------------------------------------------
 function add_user(string $csv_filename, string $username, string $password): void
 {
+    $newUser = new User($username, $password);
 
     $handle = fopen($csv_filename, "a");
 
