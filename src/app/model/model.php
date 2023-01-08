@@ -153,19 +153,21 @@ function get_img_info_category(array $local_file_array, string $genre): array
     return $imgInfoArray;
 }
 
-//-------------------- User Methods -----------------------------///
+//-------------------- Login Methods -----------------------------///
 
-function check_user_login(string $username, string $password): bool
+function check_user_login(string $username, string $password): mixed
 {
 
     $users_list = User::getUsersList(get_csv_path('users'));
 
-    for ($i = 0; $i < count($users_list); $i++) {
-        if (in_array($username, $users_list[$i], true) && in_array($password, $users_list[$i], true)) {
-            return true;
+    // Search for the credentials in the users list and return true if find it
+    foreach ($users_list as $user) {
+        if ($username == $user->getUsername() && $password == $user->getPassword()) {
+            return $user;
         }
     }
-    return false;
+
+    return null;
 }
 
 // ----------------------------------------------------------------------------

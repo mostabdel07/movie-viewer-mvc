@@ -115,8 +115,9 @@ function login(Request $request, Context $context): array
         $password = $request->parameters['password'];
 
         // Look into users.csv if the username and password are corrects, etc.
-        if (check_user_login($username, $password)) {
-            $response = new Response('Logged!');
+        if (check_user_login($username, $password) != null) {
+            $role = check_user_login($username, $password)->getRole(); // Get the role 
+            $response = new Response("Logged like $role!");
             $context->logged_in = true;
             $context->name = $username;
         } else {

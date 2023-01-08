@@ -45,15 +45,10 @@ function read_csv(string $csv_filename, string $separator): array
     $trimmed_csv_str = trim($csv_str);
     $data            = split_csv_str($trimmed_csv_str, $separator);
 
+    // Gets the values from the csv array to create new User objects
     $list = array_map(function ($data) {
-        return ['username' => $data[0], 'password' => $data[1]];
+        return new User($data[0], $data[1], $data[2]);
     }, $data);
-
-    // $list = array_map(function ($data) {
-    //     return new User($data[0], $data[1]);
-    // }, $data);
-
-
 
     return $list;
 }
@@ -82,15 +77,13 @@ function write_csv(array $table, string $csv_filename, string $separator = ' | '
 // ############################################################################
 // User Class
 // ############################################################################
-// Rows are associative arrays. Keys are the column names in the header.
-
 
 class User
 {
 
-    public string $username;
-    public string $password;
-    public string $role;
+    protected string $username;
+    protected string $password;
+    protected string $role;
 
     // ------------------------------------------------------------------------
     public function __construct(string $username, string $password, string $role = "user")
@@ -143,15 +136,21 @@ class User
     // ------------------------------------------------------------------------
     public function getPassword(): string
     {
-        $result = $this->password;
-        return $result;
+        return $this->password;
     }
 
     // ------------------------------------------------------------------------
     public function getUsername(): string
     {
-        $result = $this->username;
-        return $result;
+
+        return $this->username;
     }
-}
+
     // ------------------------------------------------------------------------
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+
+    // ------------------------------------------------------------------------
+}
