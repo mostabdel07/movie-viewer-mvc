@@ -1,26 +1,27 @@
-FILM,GENRE,LEAD STUDIO,AUDIENCE SCORE %,PROFITABILITY,WORLDWIDE GROSS,YEAR
-Youth in Revolt,Comedy,The Weinstein Company,52,1.09,$19.62 ,2010
-You Will Meet a Tall Dark Stranger,Comedy,Independent,35,1.211818182,$26.66 ,2010
-When in Rome,Comedy,Disney,44,0,$43.04 ,2010
-What Happens in Vegas,Comedy,Fox,72,6.267647029,$219.37 ,2008
-Water For Elephants,Drama,20th Century Fox,72,3.081421053,$117.09 ,2011
-WALL-E,Animation,Disney,89,2.896019067,$521.28 ,2008
-Waitress,Romance,Independent,67,11.0897415,$22.18 ,2007
-Waiting For Forever,Romance,Independent,53,0.005,$0.03 ,2011
-Valentine's Day,Comedy,Warner Bros.,54,4.184038462,$217.57 ,2010
-Tyler Perry's Why Did I get Married,Romance,Independent,47,3.7241924,$55.86 ,2007
-Twilight: Breaking Dawn,Romance,Independent,68,6.383363636,$702.17 ,2011
-Twilight,Romance,Summit,82,10.18002703,$376.66 ,2008
-The Ugly Truth,Comedy,Independent,68,5.402631579,$205.30 ,2009
-The Twilight Saga: New Moon,Drama,Summit,78,14.1964,$709.82 ,2009
-The Time Traveler's Wife,Drama,Paramount,65,2.598205128,$101.33 ,2009
-The Proposal,Comedy,Disney,74,7.8675,$314.70 ,2009
-The Invention of Lying,Comedy,Warner Bros.,47,1.751351351,$32.40 ,2009
-The Heartbreak Kid,Comedy,Paramount,41,2.129444167,$127.77 ,2007
-The Duchess,Drama,Paramount,68,3.207850222,$43.31 ,2008
+FILM,GENRE,LEAD STUDIO,AUDIENCE SCORE %,PROFITABILITY,WORLDWIDE GROSS,YEAR          
+avatar,Comedy,The Weinstein Company,52,1.09,$19.62 ,2010                                                                             
+Youth in Revolt,Comedy,The Weinstein Company,52,1.09,$19.62 ,2010                   
+You Will Meet a Tall Dark Stranger,Comedy,Independent,35,1.211818182,$26.66 ,2010   
+When in Rome,Comedy,Disney,44,0,$43.04 ,2010                                        
+What Happens in Vegas,Comedy,Fox,72,6.267647029,$219.37 ,2008                       
+Water For Elephants,Drama,20th Century Fox,72,3.081421053,$117.09 ,2011             
+WALL-E,Animation,Disney,89,2.896019067,$521.28 ,2008                                
+Waitress,Romance,Independent,67,11.0897415,$22.18 ,2007                             
+Waiting For Forever,Romance,Independent,53,0.005,$0.03 ,2011                        
+Valentine's Day,Comedy,Warner Bros.,54,4.184038462,$217.57 ,2010                    
+Tyler Perry's Why Did I get Married,Romance,Independent,47,3.7241924,$55.86 ,2007   
+Twilight: Breaking Dawn,Romance,Independent,68,6.383363636,$702.17 ,2011            
+Twilight,Romance,Summit,82,10.18002703,$376.66 ,2008                                
+The Ugly Truth,Comedy,Independent,68,5.402631579,$205.30 ,2009                      
+The Twilight Saga: New Moon,Drama,Summit,78,14.1964,$709.82 ,2009                   
+The Time Traveler's Wife,Drama,Paramount,65,2.598205128,$101.33 ,2009               
+The Proposal,Comedy,Disney,74,7.8675,$314.70 ,2009                                  
+The Invention of Lying,Comedy,Warner Bros.,47,1.751351351,$32.40 ,2009              
+The Heartbreak Kid,Comedy,Paramount,41,2.129444167,$127.77 ,2007                    
+The Duchess,Drama,Paramount,68,3.207850222,$43.31 ,2008                             
 The Curious Case of Benjamin Button,Fantasy,Warner Bros.,81,1.78394375,$285.43 ,2008
-The Back-up Plan,Comedy,CBS,47,2.202571429,$77.09 ,2010
-Tangled,Animation,Disney,88,1.365692308,$355.01 ,2010
-Something Borrowed,Romance,Independent,48,1.719514286,$60.18 ,2011
-She's Out of My League,Comedy,Paramount,60,2.4405,$48.81 ,2010
-Remember Me,Drama,Summit,70,3.49125,$55.86 ,2010
+The Back-up Plan,Comedy,CBS,47,2.202571429,$77.09 ,2010                             
+Tangled,Animation,Disney,88,1.365692308,$355.01 ,2010                               
+Something Borrowed,Romance,Independent,48,1.719514286,$60.18 ,2011                  
+She's Out of My League,Comedy,Paramount,60,2.4405,$48.81 ,2010                      
+Remember Me,Drama,Summit,70,3.49125,$55.86 ,2010                                    

@@ -66,6 +66,20 @@ function add_blog_message(string $csv_filename, string $message): void
     $blog_data->writeCSV($csv_filename);
 }
 // ----------------------------------------------------------------------------
+function add_movie(string $csv_filename, string $message): void
+{
+
+    // 1. Read Table
+    $blog_data = Table::readCSV($csv_filename);
+
+
+    // 3. Append new row
+    $blog_data->prependRow([$message]);
+
+    // 4. Write Table
+    $blog_data->writeCSV($csv_filename);
+}
+// ----------------------------------------------------------------------------
 function read_csv($csv_movies_path): array
 {
     $lines = explode("\n", file_get_contents($csv_movies_path));
@@ -173,12 +187,12 @@ function check_user_login(string $username, string $password): mixed
 // ----------------------------------------------------------------------------
 function add_user(string $csv_filename, string $username, string $password): void
 {
-    $newUser = new User($username, $password);
+    $newUserr = new User($username, $password);
 
     $handle = fopen($csv_filename, "a");
 
-    fputcsv($handle, ["\n"]);
-    fputcsv($handle, [$username, $password]);
+    fputcsv($handle, []);
+    fputcsv($handle, [$newUserr->getUsername(), $newUserr->getPassword(), $newUserr->getRole()]);
 
     fclose($handle);
 }

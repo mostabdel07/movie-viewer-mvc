@@ -29,6 +29,7 @@ require_once(get_model_dir() . '/model.php');
 use function Model\get_csv_path;
 use function Model\read_table;
 use function Model\add_blog_message;
+use function Model\add_movie;
 use function Model\check_user_login;
 use function Model\get_blog_entries;
 use function Model\get_img_info_array;
@@ -58,7 +59,7 @@ function index(Request $request, Context $context): array
 {
     // user 
     if ($context->logged_in == true && $context->role == "user") {
-        $index_body = render_template(get_template_path('/body/index-user'), []);
+        $index_body = render_template(get_template_path('/body/index-user'), ["name" => $context->name]);
         $index_view = render_template(
             get_template_path('/skeleton/skeleton-user'),
             [
@@ -117,9 +118,10 @@ function login(Request $request, Context $context): array
         // Look into users.csv if the username and password are corrects, etc.
         if (check_user_login($username, $password) != null) {
             $role = check_user_login($username, $password)->getRole(); // Get the role 
-            $response = new Response("Logged like $role!");
             $context->logged_in = true;
             $context->name = $username;
+            $context->role = $role;
+            $response = new Response(redirection_path: '/index');
         } else {
             $response = new Response('Username or password is incorrect!');
         }
@@ -171,31 +173,52 @@ function register(Request $request, Context $context): array
 function blog(Request $request, Context $context): array
 {
 
-    // 1. If request is POST, add data
-    if ($request->method == 'POST') {
-        add_blog_message(get_csv_path('blog'), $request->parameters['message']);
+    if ($context->logged_in == true && $context->role == "user") {
+
+        if ($request->method == 'POST') {
+            add_blog_message(get_csv_path('blog'), $request->parameters['message']);
+        }
+
+        $blog_vars = get_blog_entries();
+
+
+        $blog_body = render_template(
+            get_template_path('/body/blog-user'),
+            ['blog_entry' => $blog_vars]
+        );
+        $blog_view = render_template(
+            get_template_path('/skeleton/skeleton-user'),
+            [
+                'title' => 'Blog',
+                'body'  => $blog_body
+            ]
+        );
+
+        $response = new Response($blog_view);
+        return [$response, $context];
+    } else {
+
+        // 2. Get data
+
+        $blog_vars = get_blog_entries();
+
+        // 3. Fill template with data
+        $blog_body = render_template(
+            get_template_path('/body/blog'),
+            ['blog_entry' => $blog_vars]
+        );
+        $blog_view = render_template(
+            get_template_path('/skeleton/skeleton'),
+            [
+                'title' => 'Blog',
+                'body'  => $blog_body
+            ]
+        );
+
+        // 4. Return response
+        $response = new Response($blog_view);
+        return [$response, $context];
     }
-
-    // 2. Get data
-
-    $blog_vars = get_blog_entries();
-
-    // 3. Fill template with data
-    $blog_body = render_template(
-        get_template_path('/body/blog'),
-        ['blog_entry' => $blog_vars]
-    );
-    $blog_view = render_template(
-        get_template_path('/skeleton/skeleton'),
-        [
-            'title' => 'Blog',
-            'body'  => $blog_body
-        ]
-    );
-
-    // 4. Return response
-    $response = new Response($blog_view);
-    return [$response, $context];
 }
 
 // ----------------------------------------------------------------------------
@@ -245,26 +268,52 @@ function genre(Request $request, Context $context): array
 // ----------------------------------------------------------------------------
 function data(Request $request, Context $context): array
 {
+    if ($context->logged_in == true && $context->role == "user") {
 
-    // 1. Get data
-    $movies_table = read_table(get_csv_path('movies'), ',');
+        if ($request->method == 'POST') {
+            add_movie(get_csv_path('movies'), $request->parameters['message']);
+        }
 
-    // 2. Fill template with data
-    $data_body = render_template(
-        get_template_path('/body/data'),
-        ['movies_table' => $movies_table]
-    );
+        $movies_table = read_table(get_csv_path('movies'), ',');
 
-    $data_view = render_template(
-        get_template_path('/skeleton/skeleton'),
-        [
-            'title' => 'Data',
-            'body'  => $data_body
-        ]
-    );
+        // 2. Fill template with data
+        $data_body = render_template(
+            get_template_path('/body/data-user'),
+            ['movies_table' => $movies_table]
+        );
 
-    $response = new Response($data_view);
-    return [$response, $context];
+        $data_view = render_template(
+            get_template_path('/skeleton/skeleton-user'),
+            [
+                'title' => 'Data',
+                'body'  => $data_body
+            ]
+        );
+
+        $response = new Response($data_view);
+        return [$response, $context];
+    } else {
+
+        // 1. Get data
+        $movies_table = read_table(get_csv_path('movies'), ',');
+
+        // 2. Fill template with data
+        $data_body = render_template(
+            get_template_path('/body/data'),
+            ['movies_table' => $movies_table]
+        );
+
+        $data_view = render_template(
+            get_template_path('/skeleton/skeleton'),
+            [
+                'title' => 'Data',
+                'body'  => $data_body
+            ]
+        );
+
+        $response = new Response($data_view);
+        return [$response, $context];
+    }
 }
 
 // ----------------------------------------------------------------------------

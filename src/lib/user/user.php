@@ -115,7 +115,7 @@ class User
     // ------------------------------------------------------------------------
     public static function insertUser(
         string $csv_filename,
-        string $separator = ' | '
+        string $separator = ' , '
     ): void {
 
         // write_csv($this, $csv_filename, $separator);

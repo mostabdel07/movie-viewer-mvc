@@ -5,7 +5,7 @@ path            | methods   | controller_function
 /contact        | GET, POST | Controller\contact       
 /gallery        | GET       | Controller\gallery    
 /gallery/:genre | GET       | Controller\genre    
-/data           | GET       | Controller\data       
+/data           | GET, POST | Controller\data       
 /web-service    | GET       | Controller\web_service
 /api/about      | GET       | Controller\about
 /login          | GET, POST | Controller\login

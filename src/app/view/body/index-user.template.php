@@ -8,7 +8,11 @@
               <div class="container">
                 <div class="row justify-content-center">
                   <div class="col-lg-7 pt-5">
-                    <h1 class="display-4 text-white mb-3 animated slideInDown">Welcome user! Check The Billboard</h1>
+                    <h1 class="display-4 text-white mb-3 animated slideInDown">Welcome
+                      <?php
+                      echo $name
+                      ?>
+                      ! Check The Billboard</h1>
                     <p class="fs-5 text-white-50 mb-5 animated slideInDown">Find the latest and trending movies avaliable now.</p>
                     <a class="btn btn-primary py-2 px-3 animated slideInDown" href="/web-service">
                       Go to billboard
