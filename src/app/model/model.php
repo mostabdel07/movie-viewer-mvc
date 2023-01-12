@@ -195,4 +195,11 @@ function add_user(string $csv_filename, string $username, string $password): voi
     fputcsv($handle, [$newUserr->getUsername(), $newUserr->getPassword(), $newUserr->getRole()]);
 
     fclose($handle);
+
+    // $row = <<<END
+    // $username '|' $role 
+
+    // END;
+
+    // file_put_contents();
 }

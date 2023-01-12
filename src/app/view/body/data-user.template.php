@@ -61,7 +61,12 @@
            </div>
            <br>
            <form method="post">
-             Add a message: <input type="text" name="message" />
+             <label>
+               Film:
+               <input type="text" name="film" />
+             </label>
+             <br>
+             <button type="submit">Add movie</button>
            </form>
          </div>
        </div>

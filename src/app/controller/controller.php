@@ -57,11 +57,18 @@ use function Utils\api_call;
 // ----------------------------------------------------------------------------
 function index(Request $request, Context $context): array
 {
-    // user 
-    if ($context->logged_in == true && $context->role == "user") {
-        $index_body = render_template(get_template_path('/body/index-user'), ["name" => $context->name]);
+    $action = $request->parameters['action'] ?? 'list';
+    if ($action == 'logout') {
+        $context->logged_in = false;
+    }
+
+    // registered
+    if ($context->logged_in == true) {
+
+        $username = $context->name;
+        $index_body = render_template(get_template_path('/body/index-registered'), ["name" => $username]);
         $index_view = render_template(
-            get_template_path('/skeleton/skeleton-user'),
+            get_template_path('/skeleton/skeleton-registered'),
             [
                 'title' => 'WebApp',
                 'body'  => $index_body
@@ -123,7 +130,19 @@ function login(Request $request, Context $context): array
             $context->role = $role;
             $response = new Response(redirection_path: '/index');
         } else {
-            $response = new Response('Username or password is incorrect!');
+            $login_body = render_template(
+                get_template_path('/body/login-error'),
+                []
+            );
+            $login_view = render_template(
+                get_template_path('/skeleton/skeleton'),
+                [
+                    'title' => 'Login',
+                    'body'  => $login_body
+                ]
+            );
+
+            $response = new Response($login_view);
         }
 
         return [$response, $context];
@@ -159,10 +178,23 @@ function register(Request $request, Context $context): array
 
         // Look into users.csv if the username and password exist.
         if (check_user_login($username, $password)) {
-            $response = new Response('User already exists!');
+
+            $register_body = render_template(
+                get_template_path('/body/register-error'),
+                []
+            );
+            $register_view = render_template(
+                get_template_path('/skeleton/skeleton'),
+                [
+                    'title' => 'Register',
+                    'body'  => $register_body
+                ]
+            );
+            $response = new Response($register_view);
         } else {
             add_user(get_csv_path('users'), $username, $password);
-            $response = new Response('Registration Successful!');
+            $response = new Response();
+            $response->set_redirection('/login');
         }
 
         return [$response, $context];
@@ -187,7 +219,7 @@ function blog(Request $request, Context $context): array
             ['blog_entry' => $blog_vars]
         );
         $blog_view = render_template(
-            get_template_path('/skeleton/skeleton-user'),
+            get_template_path('/skeleton/skeleton-registered'),
             [
                 'title' => 'Blog',
                 'body'  => $blog_body
@@ -283,7 +315,7 @@ function data(Request $request, Context $context): array
         );
 
         $data_view = render_template(
-            get_template_path('/skeleton/skeleton-user'),
+            get_template_path('/skeleton/skeleton-registered'),
             [
                 'title' => 'Data',
                 'body'  => $data_body
@@ -323,15 +355,27 @@ function web_service(Request $request, Context $context): array
     $result_billboard = api_call("https://api.themoviedb.org/3/trending/all/day?api_key=", $api_key);
 
     $web_service_body = render_template(get_template_path('/body/web-service'), ['movies_array' => $result_billboard]);
-    $web_service_view = render_template(
-        get_template_path('/skeleton/skeleton'),
-        [
-            'title' => 'Data',
-            'body'  => $web_service_body
-        ]
-    );
 
-    $response = new Response($web_service_view);
+    if ($context->logged_in == true) {
+        $web_service_view = render_template(
+            get_template_path('/skeleton/skeleton-registered'),
+            [
+                'title' => 'Data',
+                'body'  => $web_service_body
+            ]
+        );
+
+        $response = new Response($web_service_view);
+    } else {
+        $web_service_view = render_template(
+            get_template_path('/skeleton/skeleton'),
+            [
+                'title' => 'Data',
+                'body'  => $web_service_body
+            ]
+        );
+        $response = new Response($web_service_view);
+    }
     return [$response, $context];
 }
 
@@ -378,15 +422,26 @@ function contact(Request $request, Context $context): array
             get_template_path('/body/contact'),
             []
         );
-        $contact_view = render_template(
-            get_template_path('/skeleton/skeleton'),
-            [
-                'title' => 'Contact',
-                'body'  => $contact_body
-            ]
-        );
+        if ($context->logged_in == true) {
+            $contact_view = render_template(
+                get_template_path('/skeleton/skeleton-registered'),
+                [
+                    'title' => 'Contact',
+                    'body'  => $contact_body
+                ]
+            );
+            $response = new Response($contact_view);
+        } else {
+            $contact_view = render_template(
+                get_template_path('/skeleton/skeleton'),
+                [
+                    'title' => 'Contact',
+                    'body'  => $contact_body
+                ]
+            );
 
-        $response = new Response($contact_view);
+            $response = new Response($contact_view);
+        }
         return [$response, $context];
 
         // 2. If POST get form parameters

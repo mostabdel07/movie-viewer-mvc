@@ -80,7 +80,7 @@
           <a href="/contact" class="nav-item nav-link">Contact</a>
         </div>
         <div class="d-none d-lg-flex ms-2">
-          <a class="btn btn-outline-primary py-2 px-3" href="/login">
+          <a class="btn btn-outline-primary py-2 px-3" href="/index?action=logout">
             Log Out
             <div class="d-inline-flex btn-sm-square bg-white text-primary rounded-circle ms-2">
               <i class="fa fa-arrow-right"></i>

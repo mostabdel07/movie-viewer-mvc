@@ -87,6 +87,13 @@ class Response
         array_push($this->cookie_array, $cookie);
     }
 
+    // ------------------------------------------------------------------------
+    public function set_redirection(string $redirection_path): void
+    {
+
+        $this->redirection_path = $redirection_path;
+    }
+
     // Use '/' to make sure the cookie is available in the whole domain
     // ------------------------------------------------------------------------
     function put_cookies_in_header(): void
