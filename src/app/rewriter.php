@@ -1,13 +1,17 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Rewriter;
 
 require_once(__DIR__ . '/config.php');
+
 use function Config\get_app_dir;
 use function Config\get_public_dir;
 use function Config\get_lib_dir;
 
 require_once(get_lib_dir() . '/request/request.php');
+
 use Request\Request;
 
 
@@ -61,7 +65,8 @@ use Request\Request;
 // - Routing HowTo: https://externals.io/message/53869
 // - Superglobals:  https://www.php.net/manual/en/language.variables.superglobals.php
 // ----------------------------------------------------------------------------
-function main() {
+function main()
+{
 
     // 1. Main
     $main = get_app_dir() . '/main.php';
@@ -72,8 +77,12 @@ function main() {
     $file_found     = is_file($local_path);
 
     // 3. Process request
-    if   ($file_found)  { return false; }       // Serve static resource
-    else                { require_once $main; } // Serve dynamic resource
+    if ($file_found) {
+        return false;
+    }       // Serve static resource
+    else {
+        require_once $main;
+    } // Serve dynamic resource
 
 }
 // ----------------------------------------------------------------------------

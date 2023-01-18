@@ -30,6 +30,7 @@ use function Model\get_csv_path;
 use function Model\read_table;
 use function Model\add_blog_message;
 use function Model\add_movie;
+use function Model\delete_movie;
 use function Model\check_user_login;
 use function Model\get_blog_entries;
 use function Model\get_img_info_array;
@@ -208,7 +209,9 @@ function blog(Request $request, Context $context): array
     if ($context->logged_in == true && $context->role == "user") {
 
         if ($request->method == 'POST') {
-            add_blog_message(get_csv_path('blog'), $request->parameters['message']);
+            $title = $request->parameters['title'];
+            $text = $request->parameters['text'];
+            add_blog_message($title, $text);
         }
 
         $blog_vars = get_blog_entries();
@@ -300,19 +303,42 @@ function genre(Request $request, Context $context): array
 // ----------------------------------------------------------------------------
 function data(Request $request, Context $context): array
 {
-    if ($context->logged_in == true && $context->role == "user") {
+    if ($context->logged_in == true) {
 
         if ($request->method == 'POST') {
-            add_movie(get_csv_path('movies'), $request->parameters['message']);
+
+            $film = $request->parameters['film'];
+            $genre = $request->parameters['genre'];
+            $studio = $request->parameters['studio'];
+            $audience = $request->parameters['audience'];
+            $profitability = $request->parameters['profitability'];
+            $gross = $request->parameters['gross'];
+            $year = $request->parameters['year'];
+
+            if ($context->role == "user") {
+                add_movie(get_csv_path('movies'), $film, $genre, $studio, $audience, $profitability, $gross, $year);
+            } elseif ($context->role == "admin") {
+                $action = $request->parameters['modify'];
+                if ($action == "add") {
+                    add_movie(get_csv_path('movies'), $film, $genre, $studio, $audience, $profitability, $gross, $year);
+                } elseif ($action == "delete") {
+                    delete_movie(get_csv_path('movies'), $film);
+                }
+            }
         }
+        $movies_table = read_table(get_csv_path('movies'), '|');
 
-        $movies_table = read_table(get_csv_path('movies'), ',');
-
-        // 2. Fill template with data
-        $data_body = render_template(
-            get_template_path('/body/data-user'),
-            ['movies_table' => $movies_table]
-        );
+        if ($context->role == "user") {
+            $data_body = render_template(
+                get_template_path('/body/data-user'),
+                ['movies_table' => $movies_table]
+            );
+        } elseif ($context->role == "admin") {
+            $data_body = render_template(
+                get_template_path('/body/data-admin'),
+                ['movies_table' => $movies_table]
+            );
+        }
 
         $data_view = render_template(
             get_template_path('/skeleton/skeleton-registered'),

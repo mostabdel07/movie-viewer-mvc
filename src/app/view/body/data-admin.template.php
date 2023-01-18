@@ -63,7 +63,7 @@
            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
              <div class="h-100 bg-secondary p-5">
                <form method="post">
-                 <div class="row g-3">
+                 <div>
                    <label>
                      Film:
                      <input type="text" name="film" />
@@ -93,7 +93,11 @@
                      <input type="text" name="year" />
                    </label>
                    <br>
-                   <button type="submit">Add movie</button>
+                   <input type="radio" id="add" name="modify" value="add">
+                   <label for="add">Add</label><br>
+                   <input type="radio" id="delete" name="modify" value="delete">
+                   <label for="delete">Delete</label><br>
+                   <button type="submit">Modify</button>
                  </div>
                </form>
              </div>

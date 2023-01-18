@@ -40,6 +40,10 @@ function get_db_dir(): string
 {
     return get_project_dir() . '/db';
 }
+function get_blog_dir(): string
+{
+    return get_project_dir() . '/db/blog';
+}
 function get_csv_dir(): string
 {
     return get_project_dir() . '/db/csv';

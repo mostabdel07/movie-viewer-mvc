@@ -8,6 +8,7 @@ require_once(__DIR__ . '/../config.php');
 
 use function Config\get_lib_dir;
 use function Config\get_csv_dir;
+use function Config\get_blog_dir;
 
 require_once(get_lib_dir() . '/table/table.php');
 require_once(get_lib_dir() . '/user/user.php');
@@ -49,35 +50,53 @@ function read_table(string $csv_filename, string $separator): Table
 }
 
 // ----------------------------------------------------------------------------
-function add_blog_message(string $csv_filename, string $message): void
+function add_blog_message(string $title, string $text): void
+{
+    // 1. Get current day
+    $timestamp     = new DTI('now');
+    $timestamp_str = $timestamp->format(DTI::RFC3339);
+    $day_str = substr($timestamp_str, 0, 9);
+
+    $blog_array = ["title" => $title, "text" => $text];
+
+    file_put_contents(get_blog_dir() . "/$day_str.json", json_encode($blog_array));
+}
+// ----------------------------------------------------------------------------
+function add_movie(string $csv_filename, string $film, string $genre, string $studio, string $audience, string $profitability, string $gross, string $year): void
 {
 
     // 1. Read Table
     $blog_data = Table::readCSV($csv_filename);
 
-    // 2. Get current time
-    $timestamp     = new DTI('now');
-    $timestamp_str = $timestamp->format(DTI::RFC3339);
 
     // 3. Append new row
-    $blog_data->prependRow([$timestamp_str, $message]);
+    $blog_data->prependRow([$film, $genre, $studio, $audience, $profitability, $gross, $year]);
 
     // 4. Write Table
     $blog_data->writeCSV($csv_filename);
 }
 // ----------------------------------------------------------------------------
-function add_movie(string $csv_filename, string $message): void
+function delete_movie(string $csv_filename, string $film): void
 {
+    $movies_data = Table::readCSV($csv_filename);
 
-    // 1. Read Table
-    $blog_data = Table::readCSV($csv_filename);
+    $key = searchForFilm($film, $movies_data->body);
 
+    unset($movies_data->body[$key]);
 
-    // 3. Append new row
-    $blog_data->prependRow([$message]);
+    $movies_data->body = array_values($movies_data->body);
 
-    // 4. Write Table
-    $blog_data->writeCSV($csv_filename);
+    $movies_data->writeCSV($csv_filename);
+}
+//----------------------
+function searchForFilm($film, $array)
+{
+    foreach ($array as $key => $val) {
+        if ($val['FILM'] == $film) {
+            return $key;
+        }
+    }
+    return null;
 }
 // ----------------------------------------------------------------------------
 function read_csv($csv_movies_path): array

@@ -32,9 +32,26 @@
         }
         ?>
      </div>
-     <form method="post">
-       Add a message: <input type="text" name="message" />
-     </form>
+     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+       <div class="h-100 bg-secondary p-5">
+         <form method="post">
+           <div class="row g-3">
+             <div class="col-12">
+               <div class="form-floating">
+                 <input type="text" class="form-control bg-light border-0" name="title">
+                 <label for="username">Title</label>
+               </div>
+             </div>
+             <div class="col-12">
+               <div class="form-floating">
+                 <textarea rows="8" cols="41" name="text"></textarea>
+               </div>
+             </div>
+             <button type="submit">Add article</button>
+           </div>
+         </form>
+       </div>
+     </div>
    </div>
  </div>
  <!-- Testimonial End -->
