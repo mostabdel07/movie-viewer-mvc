@@ -353,7 +353,7 @@ function data(Request $request, Context $context): array
     } else {
 
         // 1. Get data
-        $movies_table = read_table(get_csv_path('movies'), ',');
+        $movies_table = read_table(get_csv_path('movies'), '|');
 
         // 2. Fill template with data
         $data_body = render_template(
