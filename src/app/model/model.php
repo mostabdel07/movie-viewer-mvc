@@ -55,7 +55,7 @@ function add_blog_message(string $title, string $text): void
     // 1. Get current day
     $timestamp     = new DTI('now');
     $timestamp_str = $timestamp->format(DTI::RFC3339);
-    $day_str = substr($timestamp_str, 0, 9);
+    $day_str = substr($timestamp_str, 0, 10);
 
     $blog_array = ["title" => $title, "text" => $text];
 
