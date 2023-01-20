@@ -12,11 +12,10 @@ use function Config\get_blog_dir;
 
 require_once(get_lib_dir() . '/table/table.php');
 require_once(get_lib_dir() . '/user/user.php');
+require_once(get_lib_dir() . '/utils/utils.php');
 
 use Table\Table;
 use User\User;
-
-require_once(get_lib_dir() . '/utils/utils.php');
 
 use function Utils\join_paths;
 use function Utils\read_json;
@@ -60,6 +59,33 @@ function add_blog_message(string $title, string $text): void
     $blog_array = ["title" => $title, "text" => $text];
 
     file_put_contents(get_blog_dir() . "/$day_str.json", json_encode($blog_array));
+}
+
+// ----------------------------------------------------------------------------
+function delete_blog_message(string $title): void
+{
+    $blog_entries_path = (array_reverse(glob(get_blog_dir() . "/*")));
+
+    $blog_entries_list = array();
+
+    foreach ($blog_entries_path as $entry) {
+        $blog_file = read_json($entry);
+        $blog_entries_names = basename($entry);
+        $blog_entries_list += [$blog_entries_names => $blog_file];
+    }
+
+
+    $ok = '';
+    foreach ($blog_entries_list as $filename => $entry) {
+        foreach ($entry as $key => $value) {
+            if ($key == 'title' && $value == $title) {
+                // Remove that json file
+                // TODO
+                $output = shell_exec('rm -f ' . get_blog_dir() . "/" . $filename);
+                $ok = 'ok';
+            }
+        }
+    }
 }
 // ----------------------------------------------------------------------------
 function add_movie(string $csv_filename, string $film, string $genre, string $studio, string $audience, string $profitability, string $gross, string $year): void
@@ -122,8 +148,7 @@ function read_csv($csv_movies_path): array
 
 function get_blog_entries(): array
 {
-    $blog_entries_path = (array_reverse(glob("/dwes/movie-viewer-mvc/db/blog/*"))); // PATH ??
-
+    $blog_entries_path = (array_reverse(glob(get_blog_dir() . "/*")));
     $blog_entries = [];
 
 
